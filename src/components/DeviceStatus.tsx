@@ -65,23 +65,18 @@ const DeviceStatus: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100 justify-items-center">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-2">
-          <div>
-            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1">Device Status</h1>
-            {/* <p className="text-gray-600">Real-time device information and system metrics</p> */}
-          </div>
-          {/* <div className="flex items-center space-x-2 mt-4 lg:mt-0">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-gray-700">Online</span>
-          </div> */}
-        </div>
-
-        {/* System Metrics */}
-      </div>
+      
 
       {/* Device Information */}
       <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center mb-6">
+          <div className="mb-6 border-b border-gray-200 pb-2">
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Device Status</h1>
+            {/* <p className="text-gray-600">Configure your network connection and preferences</p> */}
+          </div>
+        </div>
+
+
         <div className="flex items-center mb-6">
           <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg mr-3">
             <Activity className="h-6 w-6 text-gray-600" />

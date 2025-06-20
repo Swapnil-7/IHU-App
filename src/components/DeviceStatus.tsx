@@ -1,81 +1,74 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React, { useState, useEffect } from 'react';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Cpu, HardDrive, Wifi, Calendar, MapPin, Hash, Settings, Clock, Thermometer, Activity } from 'lucide-react';
+import {
+  Cpu, HardDrive, Wifi, Calendar, MapPin, Hash, Settings, Activity,
+  
+  Building2,
+} from 'lucide-react';
+import deviceService from '../services/deviceService';
+import { DeviceStatusData } from '../types/device';
 
 const DeviceStatus: React.FC = () => {
-  const [deviceData] = useState({
-    manufacturer: 'FountLab',
-    device: 'FL-MODGATE',
-    deviceMacId: '0CB921EC68F4',
-    wifiMac: '0C:B9:15:4E:68:F4',
-    sdkVersion: 'v4.4.2',
-    firmwareName: 'MODGATE',
-    firmwareVersion: '2.0.12',
-    firmwareBuildDate: '01/01/2024',
-    network: 'Aquasen-4EC7F8',
-    wifiIP: '192.168.0.12'
-  });
+  const [deviceData, setDeviceData] = useState<DeviceStatusData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // const [systemMetrics, setSystemMetrics] = useState({
-  //   cpuUsage: 23,
-  //   memoryUsage: 67,
-  //   temperature: 42,
-  //   uptime: '2d 14h 32m'
-  // });
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setSystemMetrics(prev => ({
-  //       ...prev,
-  //       cpuUsage: Math.max(10, Math.min(90, prev.cpuUsage + (Math.random() - 0.5) * 10)),
-  //       memoryUsage: Math.max(30, Math.min(85, prev.memoryUsage + (Math.random() - 0.5) * 5)),
-  //       temperature: Math.max(35, Math.min(65, prev.temperature + (Math.random() - 0.5) * 3)),
-  //     }));
-  //   }, 3000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      const fetchDeviceStatus = async () => {
+        try {
+          setError(null);
+          const data = await deviceService.getStatus();
+          setDeviceData(data);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+          console.error("Failed to fetch device status:", err);
+          setError(err.message || "An unknown error occurred.");
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchDeviceStatus();
+    }, 2000);
+  }, []);
 
   const deviceInfo = [
-    { label: 'Manufacturer', value: deviceData.manufacturer, icon: Settings },
-    { label: 'Device', value: deviceData.device, icon: Cpu },
-    { label: 'Device MAC ID', value: deviceData.deviceMacId, icon: Hash },
-    { label: 'WiFi MAC', value: deviceData.wifiMac, icon: Wifi },
-    { label: 'SDK Version', value: deviceData.sdkVersion, icon: HardDrive },
-    { label: 'Firmware Name', value: deviceData.firmwareName, icon: Settings },
-    { label: 'Firmware Version', value: deviceData.firmwareVersion, icon: HardDrive },
-    { label: 'Firmware Build Date', value: deviceData.firmwareBuildDate, icon: Calendar },
-    { label: 'Network', value: deviceData.network, icon: Wifi },
-    { label: 'WiFi IP', value: deviceData.wifiIP, icon: MapPin },
+    { label: 'Manufacturer', value: deviceData?.Manufacturer, icon:Building2 },
+    { label: 'Device', value: deviceData?.Device, icon: Cpu },
+    { label: 'Device ID', value: deviceData?.DeviceID, icon: Hash },
+    { label: 'IMEI', value: deviceData?.IMEI, icon: Hash },
+    { label: 'WiFi MAC', value: deviceData?.WiFiMac, icon: Wifi },
+    { label: 'SDK Version', value: deviceData?.SDKVersion, icon: HardDrive },
+    { label: 'Firmware Name', value: deviceData?.FirmwareName, icon: Settings },
+    { label: 'Firmware Version', value: deviceData?.FirmwareVersion, icon: HardDrive },
+    { label: 'Firmware Build Date', value: deviceData?.FirmwareBuildDate, icon: Calendar },
+    { label: 'Network', value: deviceData?.Network, icon: Wifi },
+    { label: 'WiFi IP', value: deviceData?.WiFiIP, icon: MapPin },
   ];
 
-  // const getMetricColor = (value: number, type: string) => {
-  //   if (type === 'temperature') {
-  //     if (value > 55) return 'text-red-600 bg-red-100';
-  //     if (value > 45) return 'text-orange-600 bg-orange-100';
-  //     return 'text-green-600 bg-green-100';
-  //   }
-    
-  //   if (value > 80) return 'text-red-600 bg-red-100';
-  //   if (value > 60) return 'text-orange-600 bg-orange-100';
-  //   return 'text-green-600 bg-green-100';
-  // };
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-48 text-red-600">
+        <p>Error fetching device status: {error}</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      
+    <div className="space-y-6 relative">
+      {loading && (
+        <div className="fixed inset-0 z-50 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+           {/* <img src="../assets/images/FountLab_Logo.pn" alt="Loading..." className="logo-loader h-6" /> */}
+           <img src="/src/assets/images/FountLab_Logo.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
+        </div>
+      )}
 
-      {/* Device Information */}
       <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center mb-6">
           <div className="mb-6 border-b border-gray-200 pb-2">
             <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Device Status</h1>
-            {/* <p className="text-gray-600">Configure your network connection and preferences</p> */}
           </div>
         </div>
-
 
         <div className="flex items-center mb-6">
           <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg mr-3">
@@ -83,10 +76,13 @@ const DeviceStatus: React.FC = () => {
           </div>
           <h2 className="text-xl font-bold text-gray-900">Device Information</h2>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-6">
           {deviceInfo.map((info, index) => (
-            <div key={index} className="flex items-center p-4 bg-gradient-to-br from-gray-50 to-white rounded-lg border border-gray-100 hover:shadow-md transition-all duration-200">
+            <div
+              key={index}
+              className="flex items-center p-4 bg-gradient-to-br from-gray-50 to-white rounded-lg border border-gray-100 hover:shadow-md transition-all duration-200"
+            >
               <div className="flex-shrink-0 mr-4">
                 <div className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg">
                   <info.icon className="h-5 w-5 text-gray-500" />
@@ -94,7 +90,13 @@ const DeviceStatus: React.FC = () => {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-600 mb-1">{info.label}</p>
-                <p className="text-base lg:text-lg font-semibold text-gray-900 truncate">{info.value}</p>
+                {loading ? (
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-32"></div>
+                ) : (
+                  <p className="text-base lg:text-lg font-semibold text-gray-900 truncate">
+                    {info.value || '-'}
+                  </p>
+                )}
               </div>
             </div>
           ))}

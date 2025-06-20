@@ -1,3 +1,141 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Custom Loader */
+ /* .loader {
+  color: #b62f6c;
+  position: relative;
+  font-size: 6px;
+  background: #b62f6c;
+  animation: escaleY 1s infinite ease-in-out;
+  width: 1em;
+  height: 1.5em;
+  animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 2em;
+  background: #b62f6c;
+  width: 1em;
+  height: 4em;
+  animation: escaleY 1s infinite ease-in-out;
+}
+
+.loader:before {
+  left: -2em;
+  animation-delay: -0.32s;
+}
+
+@keyframes escaleY {
+  0%, 80%, 100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}  */
+
+
+
+/* In your CSS file (e.g., App.css or a dedicated loader.css) */
+/* In your CSS file (e.g., App.css or a dedicated loader.css) */
+
+/* .loader {
+  position: relative;
+  font-size: 6px;
+  width: 1em;
+  height: 1.5em; 
+
+ 
+  background-image: linear-gradient(to bottom, #14B8A6, #2563EB); 
+  animation: escaleY 1s infinite ease-in-out;
+  animation-delay: -0.16s;
+  
+ 
+  background-size: 100% 100%; 
+  background-repeat: no-repeat;
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+ 
+  left: 2em; 
+  
+  width: 1em;
+  height: 4em; 
+
+  
+  background-image: linear-gradient(to bottom, #14B8A6, #2563EB); 
+  animation: escaleY 1s infinite ease-in-out;
+  
+ 
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.loader:before {
+  left: -2em; 
+  animation-delay: -0.32s;
+}
+
+@keyframes escaleY {
+  0%, 80%, 100% {
+    box-shadow: 0 0 #14B8A6; 
+    height: 4em; 
+  }
+  40% {
+    
+    box-shadow: 0 -2em #14B8A6; 
+    height: 5.2em; 
+  }
+} */
+
+
+
+/* src/index.css or your global CSS file */
+
+/* Ensure the default loader (bars) is kept for other components if needed,
+   or if you want to replace it everywhere, adapt the .loader class */
+
+/* --- NEW CSS FOR LOGO LOADER --- */
+.logo-loader {
+  display: block; /* Ensures it behaves like a block element for centering */
+  width: 60px; /* Adjust the base size of your logo here */
+  height: auto; /* Maintain aspect ratio */
+  animation: logoJump 1s infinite ease-in-out;
+  transform-origin: bottom center; /* Animation originates from the bottom of the logo */
+  filter: drop-shadow(0 0 0 transparent); 
+ /* Initial transparent shadow */
+}
+
+@keyframes logoJump {
+  0%, 80%, 100% {
+    transform: translateY(0) scaleY(1); /* Start/End: normal position and size */
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); /* No shadow */
+  }
+  40% {
+    /* Peak: move up and scale vertically, creating the "jump" and "stretch" effect */
+    transform: translateY(-15px) scaleY(1.15); /* Adjust pixels for jump height, and scale for stretch */
+    /* Add a shadow below the jumping logo */
+    filter: drop-shadow(0 10px 8px rgba(240, 239, 239, 0.3)); /* Adjust shadow color, blur, and vertical offset */
+  }
+}
+
+/* If you still need the bar loader for other places, keep its CSS.
+   Otherwise, you can remove the old .loader, .loader:before, .loader:after and @keyframes escaleY
+   if you replace all loaders with the logo. */
+
+/* Existing loader CSS if you want to keep it as fallback/for other components: */
+
+/* --- END OF OLD LOADER CSS (KEEP OR REMOVE AS NEEDED) --- */

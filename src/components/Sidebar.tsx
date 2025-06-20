@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Network, Shield, LogOut, X } from 'lucide-react'; // Removed unused imports
+import { Activity, Network, Shield, LogOut, X, Settings2Icon, ServerIcon, Cpu, Home } from 'lucide-react'; // Removed unused imports
 
 interface SidebarProps {
   activeSection: string;
@@ -11,9 +11,13 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpen, onToggle, onLogout }) => {
   const navItems = [
-    { id: 'status', label: 'Device Status', icon: Activity, description: 'Hardware & system info' },
-    { id: 'network', label: 'Network Settings', icon: Network, description: 'WiFi & connection config' },
-    { id: 'admin', label: 'Administration', icon: Shield, description: 'System control & monitoring' },
+     { id: 'cmd', label: 'Home', icon: Home, description: 'Device Command' },
+     { id: 'status', label: 'Device Status', icon: Activity, description: 'Hardware & system info' },
+     { id: 'general', label: 'General', icon: Settings2Icon, description: 'General Configuraion' },
+     { id: 'network', label: 'Network Settings', icon: Network, description: 'WiFi & connection config' },
+     { id: 'server', label: 'Server Settings', icon: ServerIcon, description: 'Server Configuraion' },
+      { id: 'dev', label: 'Device Configuration', icon: Cpu, description: 'Device Configuraion Values' },
+     { id: 'admin', label: 'Administration', icon: Shield, description: 'System control & monitoring' },
   ];
 
   const handleNavClick = (sectionId: string) => {
@@ -83,7 +87,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
           </nav>
 
           {/* Status indicator */}
-          <div className="p-4 border-t border-gray-200">
+          {/* <div className="p-4 border-t border-gray-200">
             <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
               <div className="flex items-center space-x-3">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
@@ -93,7 +97,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Footer - Sign Out Button */}
           <div className="p-4 border-t border-gray-200">

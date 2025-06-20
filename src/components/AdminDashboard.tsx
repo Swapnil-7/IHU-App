@@ -132,7 +132,7 @@ const AdminDashboard: React.FC = () => {
             <div className="sm:col-span-2">
               <button
                 onClick={handlePasswordSubmit}
-                className="px-6 py-3 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md"
+                className="px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold hover:shadow-xl  rounded-lg transition-all duration-200 shadow-md"
               >
                 Submit
               </button>
@@ -168,7 +168,7 @@ const AdminDashboard: React.FC = () => {
             </label>
             <button
               onClick={() => console.log('TELNET setting applied:', enableTelnet ? 'Yes' : 'No')}
-              className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md"
+              className="px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold hover:shadow-xl rounded-lg transition-all duration-200 shadow-md"
             >
               Submit
             </button>

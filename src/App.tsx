@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react'; // Import useEffect
+import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import AdminDashboard from './components/AdminDashboard';
 import NetworkSettings from './components/NetworkSettings';
 import DeviceStatus from './components/DeviceStatus';
 import LoginScreen from './components/LoginScreen';
+import GeneralSettings from './components/GeneralSettings';
+import ServerSettings from './components/ServerSettings';
+import DeviceConfiguration from './components/DeviceConfiguration';
+import SerialCommand from './components/Serialcommand';
 
 function App() {
   // Initialize isAuthenticated from localStorage, default to false if not found
@@ -12,7 +16,12 @@ function App() {
     return storedAuth ? JSON.parse(storedAuth) : false;
   });
 
-  const [activeSection, setActiveSection] = useState('status');
+  // Initialize activeSection from localStorage, default to 'cmd' if not found
+  const [activeSection, setActiveSection] = useState(() => {
+    const storedActiveSection = localStorage.getItem('activeSection');
+    return storedActiveSection || 'cmd'; // Default to 'cmd' if nothing is stored
+  });
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Use useEffect to update localStorage whenever isAuthenticated changes
@@ -20,40 +29,54 @@ function App() {
     localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated));
   }, [isAuthenticated]);
 
+  // Use useEffect to update localStorage whenever activeSection changes
+  useEffect(() => {
+    localStorage.setItem('activeSection', activeSection);
+  }, [activeSection]);
+
   // Function to handle login, which also updates localStorage
   const handleLogin = (status: boolean) => {
     setIsAuthenticated(status);
-    // You might also want to set the initial active section after login
+    // When logging in, set the active section from storage or default to 'cmd'
     if (status) {
-      setActiveSection('status');
+      const storedActiveSection = localStorage.getItem('activeSection');
+      setActiveSection(storedActiveSection || 'cmd'); 
     }
   };
-
-  if (!isAuthenticated) {
-    return <LoginScreen onLogin={handleLogin} />;
-  }
 
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('isAuthenticated'); // Clear authentication from local storage
-    // Optionally, reset activeSection or redirect to login (already handled by !isAuthenticated)
-    setActiveSection('status'); // Reset to default view
+    localStorage.removeItem('activeSection'); // Clear active section from local storage
+    setActiveSection('cmd'); // Reset to default view after logout
   };
 
+  // If not authenticated, always show the LoginScreen
   if (!isAuthenticated) {
     return <LoginScreen onLogin={handleLogin} />;
   }
 
   const renderActiveSection = () => {
     switch (activeSection) {
+      case 'cmd':
+        return <SerialCommand />;
       case 'status':
         return <DeviceStatus />;
+      case 'general':
+        return <GeneralSettings />;
       case 'network':
         return <NetworkSettings />;
+      case 'server':
+        return <ServerSettings />;
+      case 'dev':
+        return <DeviceConfiguration />;
       case 'admin':
         return <AdminDashboard />;
       default:
-        return <DeviceStatus />;
+        // Fallback to 'cmd' or a default if activeSection somehow gets a bad value
+        // Also update the state so localStorage is consistent
+        setActiveSection('cmd'); 
+        return <SerialCommand />;
     }
   };
 
@@ -88,7 +111,7 @@ function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <h1 className="text-lg font-semibold text-gray-900">NetworkPro</h1>
+            <img src="/src/assets/images/logo.png" alt="Logo" className="h-6 object-contain mix-blend-darken mb-2" />
             <div className="w-10" /> {/* Spacer for centering */}
           </div>
         </div>

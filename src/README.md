@@ -10,7 +10,7 @@ A modern, responsive web application for managing and monitoring network devices
 - Automatic session restoration on page refresh
 - Clean logout functionality
 
-### 📊 Administration Dashboard
+### 📊 Administration 
 - Quick action buttons for common tasks
 
 

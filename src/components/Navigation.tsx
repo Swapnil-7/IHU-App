@@ -1,5 +1,5 @@
 import React from 'react';
-import { Settings, Network, Activity, Shield } from 'lucide-react';
+import {  Network, Activity, Shield, Settings2Icon, ServerIcon, Cpu, Home } from 'lucide-react';
 
 interface NavigationProps {
   activeSection: string;
@@ -8,9 +8,13 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ activeSection, onSectionChange }) => {
   const navItems = [
-    { id: 'status', label: 'Device Status', icon: Activity },
+     { id: 'cmd', label: 'Home', icon: Home },
+     { id: 'status', label: 'Device Status', icon: Activity },
+     { id: 'general', label: 'General', icon: Settings2Icon },
      { id: 'network', label: 'Network Settings', icon: Network },
-    { id: 'admin', label: 'Administration', icon: Shield },
+     { id: 'server', label: 'Server Settings', icon: ServerIcon },
+     { id: 'dev', label: 'Device Configuration', icon:Cpu },
+     { id: 'admin', label: 'Administration', icon: Shield },
    
     
   ];
@@ -20,8 +24,7 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onSectionChange 
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-2">
-            <Settings className="h-8 w-8 text-teal-600" />
-            <span className="text-xl font-bold text-gray-900">NetworkPro</span>
+            <img src="/src/assets/images/logo.png" alt="Logo" className="h-6 object-contain mix-blend-darken mb-2" />
           </div>
           
           <div className="flex space-x-1">

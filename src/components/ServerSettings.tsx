@@ -35,7 +35,7 @@ const ServerSettings: React.FC = () => {
             console.log('Server settings saved successfully!');
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            console.error("Failed to save General settings:", err);
+            console.error("Failed to save Server settings:", err);
             setError(err.message || "An unknown error occurred.");
             alert(`Failed to save settings: ${err.message || "Unknown error"}`);
         } finally {

@@ -63,7 +63,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
               import FountLabLogo from '../assets/images/FountLab_Logo.png';
               and then use src={FountLabLogo}
           */}
-          <img src="/src/assets/images/FountLab_Logo.png" alt="Loading..." className="logo-loader object-contain mix-blend-darken" />
+          <img src="/src/assets/images/FountLab_Logo1.png" alt="Loading..." className="logo-loader object-contain mix-blend-darken" />
         </div>
       )}
 
@@ -71,9 +71,9 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin }) => {
         <div className="bg-white rounded-2xl shadow-2xl p-6 lg:p-8 border border-gray-100">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 ">
-              <img src="/src/assets/images/FountLab_Logo.png" alt="Logo" className="h-12 object-contain mix-blend-darken mb-1" />
+              <img src="/src/assets/images/FountLab_Logo1.png" alt="Logo" className="h-12 object-contain mix-blend-darken mb-1" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">FountLab</h1>
+            <h1 className="text-2xl font-semibold text-gray-900 mb-2">FountLab</h1>
             <p className="text-gray-600">Sign in to manage your network device</p>
           </div>
 

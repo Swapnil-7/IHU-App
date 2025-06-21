@@ -93,7 +93,7 @@ const NetworkSettings: React.FC = () => {
     <div className="space-y-6 relative">
        {loading && (
                 <div className="fixed inset-0 z-50 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-                    <img src="/src/assets/images/FountLab_Logo.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
+                    <img src="/src/assets/images/FountLab_Logo1.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
                 </div>
             )}
 

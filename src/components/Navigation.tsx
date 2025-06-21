@@ -24,8 +24,9 @@ const Navigation: React.FC<NavigationProps> = ({ activeSection, onSectionChange 
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center space-x-2">
-            <img src="/src/assets/images/logo.png" alt="Logo" className="h-6 object-contain mix-blend-darken mb-2" />
+            <img src="/src/assets/images/FntLb_Logo.png" alt="Logo" className="h-6 object-contain mix-blend-darken mb-2" />
           </div>
+          
           
           <div className="flex space-x-1">
             {navItems.map(({ id, label, icon: Icon }) => (

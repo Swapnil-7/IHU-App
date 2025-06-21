@@ -36,11 +36,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-around p-4 border-b border-gray-200">
-            <div className="flex items-center ">
+            {/* <div className="flex items-center ">
               <div>
-                {/* Assuming logo.png is in public/images or adjust path */}
+               
                 <img src="/src/assets/images/logo.png" alt="Logo" className="h-6 object-contain mix-blend-darken mb-2" />
                 <p className="text-xs text-gray-500 pl-8">Device Management</p>
+              </div>
+            </div> */}
+
+            <div className="flex items-center space-x-3">
+              <div className="flex items-center justify-center w-10 h-10 ">
+                <img src="/src/assets/images/FountLab_Logo1.png" alt="Logo" className="h-8 object-contain mix-blend-darken " />
+              </div>
+              <div>
+                <h1 className="text-2xl font-semibold font-mono text-gray-900">FountLab</h1>
+                <p className="text-xs text-gray-500">Device Management</p>
               </div>
             </div>
 
@@ -103,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
           <div className="p-4 border-t border-gray-200">
             <button
               onClick={onLogout} 
-              className="w-full flex items-center p-3 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200 group"
+              className="w-full flex items-center p-3 text-gray-600 hover:text-red-600 hover:bg-red-100 rounded-lg transition-all duration-200 group"
             >
               <LogOut className="h-5 w-5 mr-3 group-hover:text-red-600" />
               <span className="font-medium">Sign Out</span>

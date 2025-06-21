@@ -109,27 +109,50 @@
    or if you want to replace it everywhere, adapt the .loader class */
 
 /* --- NEW CSS FOR LOGO LOADER --- */
-.logo-loader {
-  display: block; /* Ensures it behaves like a block element for centering */
-  width: 60px; /* Adjust the base size of your logo here */
-  height: auto; /* Maintain aspect ratio */
+/* .logo-loader {
+  display: block; 
+  width: 60px; 
+  height: auto; 
   animation: logoJump 1s infinite ease-in-out;
-  transform-origin: bottom center; /* Animation originates from the bottom of the logo */
+  transform-origin: bottom center; /* Animation originates from the bottom of the logo *
   filter: drop-shadow(0 0 0 transparent); 
- /* Initial transparent shadow */
+
 }
 
 @keyframes logoJump {
   0%, 80%, 100% {
-    transform: translateY(0) scaleY(1); /* Start/End: normal position and size */
-    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); /* No shadow */
+    transform: translateY(0) scaleY(1); 
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0)); /* No shadow *
   }
   40% {
-    /* Peak: move up and scale vertically, creating the "jump" and "stretch" effect */
-    transform: translateY(-15px) scaleY(1.15); /* Adjust pixels for jump height, and scale for stretch */
-    /* Add a shadow below the jumping logo */
-    filter: drop-shadow(0 10px 8px rgba(240, 239, 239, 0.3)); /* Adjust shadow color, blur, and vertical offset */
+   
+    transform: translateY(-15px) scaleY(1.15);
+  
+    filter: drop-shadow(0 10px 8px rgba(240, 239, 239, 0.3)); 
   }
+} */
+
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+.logo-loader {
+  display: block;
+  width: 60px;
+  height: auto;
+  animation: logoJump 1s infinite ease-in-out;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+@keyframes logoJump {
+  0%, 80%, 100% {
+    transform: translateY(0) scaleY(1);
+    filter: drop-shadow(0 0 0 rgba(0, 0, 0, 0));
+  }
+  40% {
+    transform: translateY(-15px) scaleY(1.15);
+    filter: drop-shadow(0 10px 8px rgba(240, 239, 239, 0.082));
+  }
+
 }
 
 /* If you still need the bar loader for other places, keep its CSS.

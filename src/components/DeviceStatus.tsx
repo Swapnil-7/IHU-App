@@ -59,14 +59,14 @@ const DeviceStatus: React.FC = () => {
       {loading && (
         <div className="fixed inset-0 z-50 bg-gray-600 bg-opacity-50 flex justify-center items-center">
            {/* <img src="../assets/images/FountLab_Logo.pn" alt="Loading..." className="logo-loader h-6" /> */}
-           <img src="/src/assets/images/FountLab_Logo.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
+           <img src="/src/assets/images/FountLab_Logo1.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
         </div>
       )}
 
       <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center mb-6">
           <div className="mb-6 border-b border-gray-200 pb-2">
-            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Device Status</h1>
+            <h1 className="text-2xl lg:text-2xl font-bold text-gray-900 mb-2">Device Status</h1>
           </div>
         </div>
 

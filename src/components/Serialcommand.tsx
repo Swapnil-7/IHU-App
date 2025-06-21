@@ -79,7 +79,7 @@ const SerialCommand: React.FC = () => {
       {isLoading && (
         <div className="fixed inset-0 z-50 bg-gray-600 bg-opacity-50 flex justify-center items-center">
           {/* Ensure the path to your image is correct */}
-          <img src="/src/assets/images/FountLab_Logo.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
+          <img src="/src/assets/images/FountLab_Logo1.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
         </div>
       )}
 

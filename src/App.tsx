@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import AdminDashboard from './components/AdminDashboard';
 import NetworkSettings from './components/NetworkSettings';
@@ -111,7 +111,7 @@ function App() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <img src="/src/assets/images/logo.png" alt="Logo" className="h-6 object-contain mix-blend-darken mb-2" />
+            <img src="/src/assets/images/FntLb_Logo.png" alt="Logo" className="h-7 object-contain mix-blend-darken " />
             <div className="w-10" /> {/* Spacer for centering */}
           </div>
         </div>

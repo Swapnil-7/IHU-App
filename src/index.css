@@ -155,10 +155,66 @@
 
 }
 
-/* If you still need the bar loader for other places, keep its CSS.
-   Otherwise, you can remove the old .loader, .loader:before, .loader:after and @keyframes escaleY
-   if you replace all loaders with the logo. */
+@layer utilities {
+  /* Webkit Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
 
-/* Existing loader CSS if you want to keep it as fallback/for other components: */
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+  }
 
-/* --- END OF OLD LOADER CSS (KEEP OR REMOVE AS NEEDED) --- */
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #0d9488, #0891b2);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0f766e, #0e7490);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-corner {
+    background: #f1f5f9;
+  }
+
+  /* Sidebar specific scrollbar */
+  .sidebar-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .sidebar-scrollbar::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 0.5);
+    border-radius: 3px;
+  }
+
+  .sidebar-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(13, 148, 136, 0.6);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(13, 148, 136, 0.8);
+  }
+
+  /* Firefox scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #0d9488 #f1f5f9;
+  }
+
+  .sidebar-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(13, 148, 136, 0.6) rgba(241, 245, 249, 0.5);
+  }
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}

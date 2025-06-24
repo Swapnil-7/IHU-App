@@ -1,5 +1,12 @@
-
 import React, { useState } from 'react';
+import {
+  Key,          // For admin password     
+  Upload,       // For firmware upgrade file input
+  Save,         // For backup
+  HardDrive,    // For restore (representing data storage)
+  RefreshCcw,   // For factory reset (representing reset/revert)
+  ArrowUpFromLine, // For the upgrade button
+} from 'lucide-react'; // Import necessary icons
 
 const AdminDashboard: React.FC = () => {
   const [adminPasswords, setAdminPasswords] = useState({
@@ -68,15 +75,14 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100">
+      <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100 overflow-y-auto max-h-[calc(100vh-5rem)] custom-scrollbar">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center mb-2">
           <div className="mb-6 border-b border-gray-200 pb-2">
-            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">ADMINISTRATION</h1> {/* Changed title */}
-            <p className="text-gray-600">Configure administrative settings and system maintenance</p> {/* Updated description */}
+            <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">ADMINISTRATION</h1>
+            <p className="text-gray-600">Configure administrative settings and system maintenance</p>
           </div>
         </div>
 
@@ -88,19 +94,19 @@ const AdminDashboard: React.FC = () => {
               onClick={handleBackup}
               className="flex items-center px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-md"
             >
-              Backup
+              <Save className="h-5 w-5 mr-2" /> Backup
             </button>
             <button
               onClick={handleRestore}
               className="flex items-center px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-md"
             >
-              Restore
+              <HardDrive className="h-5 w-5 mr-2" /> Restore
             </button>
             <button
               onClick={handleFactoryReset}
               className="flex items-center px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-colors duration-200 shadow-md"
             >
-              Factory Reset
+              <RefreshCcw className="h-5 w-5 mr-2" /> Factory Reset
             </button>
           </div>
         </div>
@@ -110,7 +116,9 @@ const AdminDashboard: React.FC = () => {
           <h2 className="text-xl font-bold text-gray-900 mb-4">Admin Password</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg">
             <div>
-              <label htmlFor="admin-password" className="block text-sm font-medium text-gray-700 mb-2">Admin Password</label>
+              <label htmlFor="admin-password" className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                <Key className="h-5 w-5 mr-2 text-gray-500" /> Admin Password
+              </label>
               <input
                 type="password"
                 id="admin-password"
@@ -120,7 +128,9 @@ const AdminDashboard: React.FC = () => {
               />
             </div>
             <div>
-              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+              <label htmlFor="confirm-password" className="flex items-center text-sm font-medium text-gray-700 mb-2">
+                <Key className="h-5 w-5 mr-2 text-gray-500" /> Confirm Password
+              </label>
               <input
                 type="password"
                 id="confirm-password"
@@ -132,8 +142,9 @@ const AdminDashboard: React.FC = () => {
             <div className="sm:col-span-2">
               <button
                 onClick={handlePasswordSubmit}
-                className="px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold hover:shadow-xl  rounded-lg transition-all duration-200 shadow-md"
+                className="flex items-center px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold hover:shadow-xl rounded-lg transition-all duration-200 shadow-md"
               >
+                <Save className="h-5 w-5 mr-2" /> 
                 Submit
               </button>
             </div>
@@ -168,9 +179,9 @@ const AdminDashboard: React.FC = () => {
             </label>
             <button
               onClick={() => console.log('TELNET setting applied:', enableTelnet ? 'Yes' : 'No')}
-              className="px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold hover:shadow-xl rounded-lg transition-all duration-200 shadow-md"
+              className="flex items-center px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white font-semibold hover:shadow-xl rounded-lg transition-all duration-200 shadow-md"
             >
-              Submit
+              <Save className="h-5 w-5 mr-2" /> Submit
             </button>
           </div>
         </div>
@@ -178,30 +189,25 @@ const AdminDashboard: React.FC = () => {
         {/* Firmware Upgrade */}
         <div className="mb-2">
           <h2 className="text-xl font-bold text-gray-900 mb-2">Upgrade</h2>
-          <div className="flex items-center">
+          <div className="flex items-center space-x-4"> {/* Added space-x-4 for consistent spacing */}
+            <label htmlFor="firmware-file" className="flex items-center text-sm font-medium text-gray-700 cursor-pointer">
+                <Upload className="h-5 w-5 mr-2 text-gray-500" /> Select Firmware File
+            </label>
             <input
               type="file"
               id="firmware-file"
               onChange={handleFirmwareFileChange}
-              className="block w-full text-sm text-gray-500
-                file:mr-4 file:py-2 file:px-4
-                file:rounded-md file:border-0
-                file:text-sm file:font-semibold
-                file:bg-gray-50 file:text-gray-700
-                hover:file:bg-gray-100
-                cursor-pointer
-              "
+              className="hidden" // Hide the default input, the label acts as the click target
             />
             {firmwareFile && <span className="text-gray-600">{firmwareFile.name}</span>}
             <button
               onClick={handleFirmwareUpgrade}
-              className="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md"
+              className="flex items-center px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-all duration-200 shadow-md"
             >
-              Upgrade
+              <ArrowUpFromLine className="h-5 w-5 mr-2" /> Upgrade
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );

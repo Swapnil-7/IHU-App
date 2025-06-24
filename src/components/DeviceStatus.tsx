@@ -1,39 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import {
   Cpu, HardDrive, Wifi, Calendar, MapPin, Hash, Settings, Activity,
-  
   Building2,
 } from 'lucide-react';
 import deviceService from '../services/deviceService';
 import { DeviceStatusData } from '../types/device';
+import toast, { Toaster } from 'react-hot-toast'; // <--- Import toast and Toaster
 
 const DeviceStatus: React.FC = () => {
   const [deviceData, setDeviceData] = useState<DeviceStatusData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null); // <--- Removed this state
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      const fetchDeviceStatus = async () => {
-        try {
-          setError(null);
-          const data = await deviceService.getStatus();
-          setDeviceData(data);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (err: any) {
-          console.error("Failed to fetch device status:", err);
-          setError(err.message || "An unknown error occurred.");
-        } finally {
-          setLoading(false);
+    // Removed the outer setTimeout. The inner async logic can directly use the useEffect cleanup for unmounting.
+    const fetchDeviceStatus = async () => {
+      try {
+        // setError(null); // <--- No longer needed
+        const data = await deviceService.getStatus();
+        setDeviceData(data);
+        if (data) { // Check if data was actually received
+          toast.success('Device status fetched successfully!'); // <--- Success toast
+        } else {
+          toast.error('No device status data received.'); // <--- Error if no data
         }
-      };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        console.error("Failed to fetch device status:", err);
+        const errorMessage = err.message || "An unknown error occurred while fetching device status.";
+        toast.error(`Error: ${errorMessage}`); // <--- Error toast
+        // setError(errorMessage); // <--- No longer needed for display, toast handles it
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Add a slight delay for the loader to be visible, if desired, otherwise call directly
+    const delay = setTimeout(() => {
       fetchDeviceStatus();
-    }, 2000);
+    }, 2000); // 2-second delay for loader
+
+    // Cleanup function for useEffect to clear the timeout if component unmounts
+    return () => clearTimeout(delay);
   }, []);
 
   const deviceInfo = [
-    { label: 'Manufacturer', value: deviceData?.Manufacturer, icon:Building2 },
+    { label: 'Manufacturer', value: deviceData?.Manufacturer, icon: Building2 },
     { label: 'Device', value: deviceData?.Device, icon: Cpu },
     { label: 'Device ID', value: deviceData?.DeviceID, icon: Hash },
     { label: 'IMEI', value: deviceData?.IMEI, icon: Hash },
@@ -46,24 +59,48 @@ const DeviceStatus: React.FC = () => {
     { label: 'WiFi IP', value: deviceData?.WiFiIP, icon: MapPin },
   ];
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center h-48 text-red-600">
-        <p>Error fetching device status: {error}</p>
-      </div>
-    );
-  }
+  // <--- Removed the conditional render for 'error' state, toasts handle it ---
+  // if (error) {
+  //   return (
+  //     <div className="flex items-center justify-center h-48 text-red-600">
+  //       <p>Error fetching device status: {error}</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="space-y-6 relative">
+      {/* Toaster component - essential for displaying toasts */}
+      
+
       {loading && (
         <div className="fixed inset-0 z-50 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-           {/* <img src="../assets/images/FountLab_Logo.pn" alt="Loading..." className="logo-loader h-6" /> */}
-           <img src="/src/assets/images/FountLab_Logo1.png" alt="Loading..." className=" logo-loader  object-contain mix-blend-darken " />
+          <img src="/src/assets/images/FountLab_Logo1.png" alt="Loading..." className="logo-loader object-contain mix-blend-darken" />
         </div>
       )}
 
-      <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100">
+      <Toaster
+        position="top-center" // You can adjust the position as needed
+        reverseOrder={false}
+        toastOptions={{
+          success: {
+            duration: 1000,
+            style: {
+              background: '#22C55E', // Green-500
+              color: '#fff',
+            },
+          },
+          error: {
+            duration: 1000,
+            style: {
+              background: '#EF4444', // Red-500
+              color: '#fff',
+            },
+          },
+        }}
+      />
+
+      <div className="bg-white rounded-2xl shadow-sm p-6 lg:p-8 border border-gray-100 overflow-y-auto max-h-[calc(100vh-5rem)] custom-scrollbar">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center mb-6">
           <div className="mb-6 border-b border-gray-200 pb-2">
             <h1 className="text-2xl lg:text-2xl font-bold text-gray-900 mb-2">Device Status</h1>

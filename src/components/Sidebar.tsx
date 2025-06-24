@@ -1,29 +1,38 @@
 import React from 'react';
-import { Activity, Network, Shield, LogOut, X, Settings2Icon, ServerIcon, Cpu, Home } from 'lucide-react'; // Removed unused imports
+import { Activity, Network, Shield, LogOut, X, Settings2Icon, ServerIcon, Cpu, Home } from 'lucide-react';
+import deviceService from '../services/deviceService'; // <--- IMPORT deviceService
 
 interface SidebarProps {
   activeSection: string;
   onSectionChange: (section: string) => void;
   isOpen: boolean;
   onToggle: (open: boolean) => void;
-  onLogout: () => void; // New prop for logout function
+  onLogout: () => void; // This prop will be called after deviceService.signOut()
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpen, onToggle, onLogout }) => {
   const navItems = [
-     { id: 'cmd', label: 'Home', icon: Home, description: 'Device Command' },
-     { id: 'status', label: 'Device Status', icon: Activity, description: 'Hardware & system info' },
-     { id: 'general', label: 'General', icon: Settings2Icon, description: 'General Configuraion' },
-     { id: 'network', label: 'Network Settings', icon: Network, description: 'WiFi & connection config' },
-     { id: 'server', label: 'Server Settings', icon: ServerIcon, description: 'Server Configuraion' },
-      { id: 'dev', label: 'Device Configuration', icon: Cpu, description: 'Device Configuraion Values' },
-     { id: 'admin', label: 'Administration', icon: Shield, description: 'System control & monitoring' },
+    { id: 'cmd', label: 'Home', icon: Home, description: 'Device Command' },
+    { id: 'status', label: 'Device Status', icon: Activity, description: 'Hardware & system info' },
+    { id: 'general', label: 'General', icon: Settings2Icon, description: 'General Configuraion' },
+    { id: 'network', label: 'Network Settings', icon: Network, description: 'WiFi & connection config' },
+    { id: 'server', label: 'Server Settings', icon: ServerIcon, description: 'Server Configuraion' },
+    { id: 'dev', label: 'Device Configuration', icon: Cpu, description: 'Device Configuraion Values' },
+    { id: 'admin', label: 'Administration', icon: Shield, description: 'System control & monitoring' },
   ];
 
   const handleNavClick = (sectionId: string) => {
     onSectionChange(sectionId);
     onToggle(false); // Close sidebar on mobile after selection
   };
+
+  // --- NEW: handleSignOut function ---
+  const handleSignOut = () => {
+    deviceService.signOut(); // Call the signOut method
+    onLogout(); // Call the onLogout prop to notify the parent component (e.g., App.tsx)
+    onToggle(false); // Close sidebar after signing out (useful for mobile)
+  };
+  // --- END NEW ---
 
   return (
     <>
@@ -36,14 +45,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-around p-4 border-b border-gray-200">
-            {/* <div className="flex items-center ">
-              <div>
-               
-                <img src="/src/assets/images/logo.png" alt="Logo" className="h-6 object-contain mix-blend-darken mb-2" />
-                <p className="text-xs text-gray-500 pl-8">Device Management</p>
-              </div>
-            </div> */}
-
             <div className="flex items-center space-x-3">
               <div className="flex items-center justify-center w-10 h-10 ">
                 <img src="/src/assets/images/FountLab_Logo1.png" alt="Logo" className="h-8 object-contain mix-blend-darken " />
@@ -64,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-2">
+          <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto max-h-[calc(100vh-10rem)] custom-scrollbar">
             {navItems.map(({ id, label, icon: Icon, description }) => (
               <button
                 key={id}
@@ -96,23 +97,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange, isOpe
             ))}
           </nav>
 
-          {/* Status indicator */}
-          {/* <div className="p-4 border-t border-gray-200">
-            <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <div>
-                  <p className="text-sm font-medium text-green-800">System Online</p>
-                  <p className="text-xs text-green-600">All services running</p>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           {/* Footer - Sign Out Button */}
           <div className="p-4 border-t border-gray-200">
             <button
-              onClick={onLogout} 
+              onClick={handleSignOut} 
               className="w-full flex items-center p-3 text-gray-600 hover:text-red-600 hover:bg-red-100 rounded-lg transition-all duration-200 group"
             >
               <LogOut className="h-5 w-5 mr-3 group-hover:text-red-600" />
